@@ -15,11 +15,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class AllSensors extends SubsystemBase {
 
+  //STATIC VARS
+  public static final String CAN_BUS_NAME = "canivore1";
+
   //DriveTrain
-  private CANcoder m_SwerveFrontLeftEncoder          = new CANcoder(2, "cancoder1");
-  private CANcoder m_SwerveFrontRightEncoder         = new CANcoder(1, "cancoder1");
-  private CANcoder m_SwerveBackLeftEncoder           = new CANcoder(3, "cancoder1");
-  private CANcoder m_SwerveBackRightEncoder          = new CANcoder(4, "cancoder1");
+  private CANcoder m_SwerveFrontLeftEncoder          = new CANcoder(2, CAN_BUS_NAME);
+  private CANcoder m_SwerveFrontRightEncoder         = new CANcoder(1, CAN_BUS_NAME);
+  private CANcoder m_SwerveBackLeftEncoder           = new CANcoder(3, CAN_BUS_NAME);
+  private CANcoder m_SwerveBackRightEncoder          = new CANcoder(4, CAN_BUS_NAME);
 
   //Algae
   private Encoder m_AlgaePivotEncoder                = new Encoder(0, 1);
@@ -36,15 +39,19 @@ public class AllSensors extends SubsystemBase {
   /** Creates a new AllSensors. */
   public AllSensors() {
 
+    //Config
+    m_AlgaePivotEncoder.setReverseDirection(true);
 
   }
 
   public void resetAlgaePivotEncoder() {
     m_AlgaePivotEncoder.reset();
+    System.out.println("RESET APE");
   }
 
   public void resetElevatorEncoder() {
     m_ElevatorEncoder.reset();
+    System.out.println("RESET EE");
   }
 
   public Command resetAPE() {

@@ -32,6 +32,8 @@ public class RobotContainer {
 
   private void configureBindings() {
    
+    m_driverController.a().onTrue(m_AllSensors.resetAPE());
+    m_driverController.b().onTrue(m_AllSensors.resetEE());
 
   }
 
