@@ -16,4 +16,12 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  public static class AlgaeIntakeConstants {
+    public static final double ALGAE_PIVOT_PID_TOLERANCE = 5.0;
+    public static final double ALGAE_PIVOT_PID_CLAMP_MAX = 0.20;
+    public static final double ALGAE_PIVOT_PID_CLAMP_MIN = -0.20;
+    public static final double STARTING_POSITION = 0;
+    public static final double STOW_POSITION = 100;
+    public static final double EXTENDED_POSITION = 550; 
+  }
 }

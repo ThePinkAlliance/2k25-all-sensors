@@ -5,10 +5,15 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.CollectAlgae;
+import frc.robot.commands.ManualAlgae;
+import frc.robot.commands.ScoreAlgae;
+import frc.robot.commands.StowAlgae;
+import frc.robot.subsystems.AlgaeIntake;
 import frc.robot.subsystems.AllSensors;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -19,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final AllSensors m_AllSensors = new AllSensors();
+  private final AlgaeIntake m_AlgaeIntake = new AlgaeIntake();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -32,8 +38,18 @@ public class RobotContainer {
 
   private void configureBindings() {
    
-    m_driverController.a().onTrue(m_AllSensors.resetAPE());
+    m_driverController.a().onTrue(m_AlgaeIntake.resetAPE());
     m_driverController.b().onTrue(m_AllSensors.resetEE());
+
+
+    m_driverController.leftBumper().whileTrue(new ScoreAlgae(m_AlgaeIntake, 0.50));
+    m_driverController.rightBumper().whileTrue(
+      new CollectAlgae(m_AlgaeIntake, -0.15, 5.0));
+    
+   
+    //m_AlgaeIntake.setDefaultCommand(new ManualAlgae(m_AlgaeIntake, 
+    //() -> m_driverController.getLeftY()*-1));
+    m_AlgaeIntake.setDefaultCommand(new StowAlgae(m_AlgaeIntake));
 
   }
 

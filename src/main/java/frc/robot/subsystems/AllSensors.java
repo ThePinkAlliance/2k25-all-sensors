@@ -25,8 +25,8 @@ public class AllSensors extends SubsystemBase {
   private CANcoder m_SwerveBackRightEncoder          = new CANcoder(4, CAN_BUS_NAME);
 
   //Algae
-  private Encoder m_AlgaePivotEncoder                = new Encoder(0, 1);
-  private DigitalInput m_AlgaeDetected               = new DigitalInput(2);
+  //private Encoder m_AlgaePivotEncoder                = new Encoder(0, 1);
+  //private DigitalInput m_AlgaeDetected               = new DigitalInput(2);
   
   //Elevator
   public Encoder m_ElevatorEncoder                   = new Encoder(3,4);
@@ -40,15 +40,15 @@ public class AllSensors extends SubsystemBase {
   public AllSensors() {
 
     //Config
-    m_AlgaePivotEncoder.setReverseDirection(true);
+    //m_AlgaePivotEncoder.setReverseDirection(true);
     m_ElevatorEncoder.setReverseDirection(true);
 
   }
 
-  public void resetAlgaePivotEncoder() {
-    m_AlgaePivotEncoder.reset();
-    System.out.println("RESET APE");
-  }
+  //public void resetAlgaePivotEncoder() {
+  //  m_AlgaePivotEncoder.reset();
+  //  System.out.println("RESET APE");
+  //}
 
   public void resetElevatorEncoder() {
     m_ElevatorEncoder.reset();
@@ -63,18 +63,18 @@ public class AllSensors extends SubsystemBase {
     return !m_ElevatorBottomMagneticSwitch.get();
   }
 
-  public boolean getAlgaeDetector() {
-    return !m_AlgaeDetected.get();
-  }
+  // public boolean getAlgaeDetector() {
+  //   return !m_AlgaeDetected.get();
+  // }
 
-  public Command resetAPE() {
-    return runOnce(
-      ()-> {
-        resetAlgaePivotEncoder();
-      }
+  // public Command resetAPE() {
+  //   return runOnce(
+  //     ()-> {
+  //       resetAlgaePivotEncoder();
+  //     }
       
-    );
-  }
+  //   );
+  // }
 
   public Command resetEE() {
     return runOnce(
@@ -91,8 +91,8 @@ public class AllSensors extends SubsystemBase {
     Logger.recordOutput("AllSensors/Swerve/FrontRightEncoder", m_SwerveFrontRightEncoder.getPosition().getValueAsDouble());
     Logger.recordOutput("AllSensors/Swerve/BackLeftEncoder", m_SwerveBackLeftEncoder.getPosition().getValueAsDouble());
     Logger.recordOutput("AllSensors/Swerve/BackRightEncoder", m_SwerveBackRightEncoder.getPosition().getValueAsDouble());
-    Logger.recordOutput("AllSensors/Algae/PivotEncodeREV", m_AlgaePivotEncoder.get());
-    Logger.recordOutput("AllSensors/Algae/DetectedSwitch", getAlgaeDetector());
+    //Logger.recordOutput("AllSensors/Algae/PivotEncodeREV", m_AlgaePivotEncoder.get());
+    //Logger.recordOutput("AllSensors/Algae/DetectedSwitch", getAlgaeDetector());
     Logger.recordOutput("AllSensors/Elevator/ElevatorEncodeREV", m_ElevatorEncoder.get());
     Logger.recordOutput("AllSensors/Elevator/BottomMagneticSwitch", getElevatorBottomSwitch());
     Logger.recordOutput("AllSensors/Elevator/TopMagneticSwitch", getElevatorTopSwitch());
