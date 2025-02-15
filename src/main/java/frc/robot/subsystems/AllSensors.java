@@ -9,8 +9,6 @@ import org.littletonrobotics.junction.Logger;
 import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class AllSensors extends SubsystemBase {
@@ -29,19 +27,19 @@ public class AllSensors extends SubsystemBase {
   //private DigitalInput m_AlgaeDetected               = new DigitalInput(2);
   
   //Elevator
-  public Encoder m_ElevatorEncoder                   = new Encoder(3,4);
-  public DigitalInput m_ElevatorBottomMagneticSwitch = new DigitalInput(5);
-  public DigitalInput m_ElevatorTopMagneticSwitch    = new DigitalInput(6);
+  //public Encoder m_ElevatorEncoder                   = new Encoder(3,4);
+  //public DigitalInput m_ElevatorBottomMagneticSwitch = new DigitalInput(5);
+  //public DigitalInput m_ElevatorTopMagneticSwitch    = new DigitalInput(6);
   //public DigitalInput m_ElevatorTestSwitch           = new DigitalInput(9);
   //Coral
-  private DigitalInput m_CoralShooterProximitySensor = new DigitalInput(7);
+  //private DigitalInput m_CoralShooterProximitySensor = new DigitalInput(7);
 
   /** Creates a new AllSensors. */
   public AllSensors() {
 
     //Config
     //m_AlgaePivotEncoder.setReverseDirection(true);
-    m_ElevatorEncoder.setReverseDirection(true);
+    //m_ElevatorEncoder.setReverseDirection(true);
 
   }
 
@@ -50,18 +48,18 @@ public class AllSensors extends SubsystemBase {
   //  System.out.println("RESET APE");
   //}
 
-  public void resetElevatorEncoder() {
-    m_ElevatorEncoder.reset();
-    System.out.println("RESET EE");
-  }
+  // public void resetElevatorEncoder() {
+  //   m_ElevatorEncoder.reset();
+  //   System.out.println("RESET EE");
+  // }
 
-  public boolean getElevatorTopSwitch() {
-    return m_ElevatorTopMagneticSwitch.get();
-  }
+  // public boolean getElevatorTopSwitch() {
+  //   return m_ElevatorTopMagneticSwitch.get();
+  // }
 
-  public boolean getElevatorBottomSwitch() {
-    return !m_ElevatorBottomMagneticSwitch.get();
-  }
+  // public boolean getElevatorBottomSwitch() {
+  //   return !m_ElevatorBottomMagneticSwitch.get();
+  // }
 
   // public boolean getAlgaeDetector() {
   //   return !m_AlgaeDetected.get();
@@ -76,13 +74,13 @@ public class AllSensors extends SubsystemBase {
   //   );
   // }
 
-  public Command resetEE() {
-    return runOnce(
-      ()-> {
-        resetElevatorEncoder();
-      }
-    );
-  }
+  // public Command resetEE() {
+  //   return runOnce(
+  //     ()-> {
+  //       resetElevatorEncoder();
+  //     }
+  //   );
+  // }
 
   @Override
   public void periodic() {
@@ -93,10 +91,10 @@ public class AllSensors extends SubsystemBase {
     Logger.recordOutput("AllSensors/Swerve/BackRightEncoder", m_SwerveBackRightEncoder.getPosition().getValueAsDouble());
     //Logger.recordOutput("AllSensors/Algae/PivotEncodeREV", m_AlgaePivotEncoder.get());
     //Logger.recordOutput("AllSensors/Algae/DetectedSwitch", getAlgaeDetector());
-    Logger.recordOutput("AllSensors/Elevator/ElevatorEncodeREV", m_ElevatorEncoder.get());
-    Logger.recordOutput("AllSensors/Elevator/BottomMagneticSwitch", getElevatorBottomSwitch());
-    Logger.recordOutput("AllSensors/Elevator/TopMagneticSwitch", getElevatorTopSwitch());
-    Logger.recordOutput("AllSensors/Coral/BeamBreakDetect", m_CoralShooterProximitySensor.get());
+    // Logger.recordOutput("AllSensors/Elevator/ElevatorEncodeREV", m_ElevatorEncoder.get());
+    // Logger.recordOutput("AllSensors/Elevator/BottomMagneticSwitch", getElevatorBottomSwitch());
+    // Logger.recordOutput("AllSensors/Elevator/TopMagneticSwitch", getElevatorTopSwitch());
+    //Logger.recordOutput("AllSensors/Coral/BeamBreakDetect", m_CoralShooterProximitySensor.get());
     //Logger.recordOutput("AllSensors/Elevator/ElevatorTestSwitch", m_ElevatorTestSwitch.get()); 
   }
 }

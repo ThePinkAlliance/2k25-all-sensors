@@ -24,4 +24,18 @@ public final class Constants {
     public static final double STOW_POSITION = 100;
     public static final double EXTENDED_POSITION = 550; 
   }
+
+  public static class ElevatorConstants {
+    public static final double ELEVATOR_PIVOT_PID_TOLERANCE = 5.0;
+    public static final double ELEVATOR_PIVOT_PID_CLAMP_MAX = 0.30;
+    public static final double ELEVATOR_PIVOT_PID_CLAMP_MIN = -0.30;
+    public static final double STARTING_POSITION = 0;
+    public static final double LEVEL1_POSITION = 1600;
+    public static final double LEVEL2_POSITION = 3500;
+    public static final double LEVEL3_POSITION = 7000;
+    public static final double LEVEL4_POSITION = 1200;
+    public static final double LIMIT_TOP_POSITION = 11000;
+
+ 
+  }
 }

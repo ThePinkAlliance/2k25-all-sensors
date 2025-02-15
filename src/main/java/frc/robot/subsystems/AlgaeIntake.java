@@ -7,10 +7,8 @@ package frc.robot.subsystems;
 import org.littletonrobotics.junction.Logger;
 
 import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
-import com.revrobotics.spark.SparkBase.ControlType;
-import com.revrobotics.spark.SparkBase.PersistMode;
+
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
@@ -19,7 +17,6 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -33,7 +30,6 @@ public class AlgaeIntake extends SubsystemBase {
   private DigitalInput m_AlgaeDetected;
   private PIDController m_AlgaePID;
   private SparkFlex m_PivotMotor;
-  //private SparkClosedLoopController m_pivotController;
   private SparkFlexConfig m_PivotConfig, m_CollectorConfig;
   public double kP, kI, kD, kMinOutput, kMaxOutput;
 
@@ -61,33 +57,19 @@ public class AlgaeIntake extends SubsystemBase {
 
     //Pivot
     m_PivotMotor = new SparkFlex(22, MotorType.kBrushless);
-    //m_PivotController = m_PivotMotor.getClosedLoopController();
     m_PivotConfig = new SparkFlexConfig();
     
-
-    //Closed Loop on NEO controller
-    // m_pivotConfig.closedLoop
-    //   .p(kP)
-    //   .i(kI)
-    //   .d(kD)
-    //   .outputRange(kMinOutput, kMaxOutput);
-    //Open or Closed Config Settings
+    //Config
     m_PivotConfig.idleMode(IdleMode.kBrake);
     m_PivotConfig.inverted(true);
     m_CollectorConfig.idleMode(IdleMode.kBrake);
-    m_PivotMotor.configure((SparkBaseConfig)m_PivotConfig,
-    SparkBase.ResetMode.kResetSafeParameters,
-    SparkBase.PersistMode.kPersistParameters);
+    m_PivotMotor.configure((SparkBaseConfig)m_PivotConfig, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
   }
   
   public void spinWheels(double speed){
     //Spins the NEO motor, speed +- 1
     m_CollectorMotor.set(speed);
   }
-
-  // public void setPivotPos(double position){
-  //   m_pivotController.setReference(position, ControlType.kPosition);
-  // }
 
   //Purpose: use by open (manual or joystick) controls
   public void movePivot(double speed) {
