@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CoralShooterSubsystem;
 
@@ -28,6 +30,7 @@ public class ScoreCoral extends Command {
   @Override
   public void execute() {
     m_coralShooterSubsystem.setCoralInputSpeed(m_speed);
+    Logger.recordOutput("AllSensors/Coral/CoralEject Speed", m_speed);
   }
   
   // Called once the command ends or is interrupted.

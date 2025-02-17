@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
@@ -31,12 +32,14 @@ public class ElevateToPosition extends Command {
   @Override
   public void execute() {
     m_ElevatorSubsystem.movePivotWithPID(m_ElevatorSubsystem.getElevatorEncPos(), m_Position);
+    Logger.recordOutput("AllSensors/Elevator/ElevateToPosition Is Running", true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_ElevatorSubsystem.moveElevator(0);
+    Logger.recordOutput("AllSensors/Elevator/ElevateToPosition Is Running", false);
   }
 
   // Returns true when the command should end.

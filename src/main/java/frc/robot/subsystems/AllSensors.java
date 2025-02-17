@@ -4,23 +4,23 @@
 
 package frc.robot.subsystems;
 
-import org.littletonrobotics.junction.Logger;
+//import org.littletonrobotics.junction.Logger;
 
-import com.ctre.phoenix6.hardware.CANcoder;
+//import com.ctre.phoenix6.hardware.CANcoder;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+//import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class AllSensors extends SubsystemBase {
 
   //STATIC VARS
-  public static final String CAN_BUS_NAME = "canivore1";
+  //public static final String CAN_BUS_NAME = "canivore1";
 
   //DriveTrain
-  private CANcoder m_SwerveFrontLeftEncoder          = new CANcoder(2, CAN_BUS_NAME);
-  private CANcoder m_SwerveFrontRightEncoder         = new CANcoder(1, CAN_BUS_NAME);
-  private CANcoder m_SwerveBackLeftEncoder           = new CANcoder(3, CAN_BUS_NAME);
-  private CANcoder m_SwerveBackRightEncoder          = new CANcoder(4, CAN_BUS_NAME);
+  //private CANcoder m_SwerveFrontLeftEncoder          = new CANcoder(2, CAN_BUS_NAME);
+  //private CANcoder m_SwerveFrontRightEncoder         = new CANcoder(1, CAN_BUS_NAME);
+  //private CANcoder m_SwerveBackLeftEncoder           = new CANcoder(3, CAN_BUS_NAME);
+  //private CANcoder m_SwerveBackRightEncoder          = new CANcoder(4, CAN_BUS_NAME);
 
   //Algae
   //private Encoder m_AlgaePivotEncoder                = new Encoder(0, 1);
@@ -85,10 +85,10 @@ public class AllSensors extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    Logger.recordOutput("AllSensors/Swerve/FrontLeftEncoder", m_SwerveFrontLeftEncoder.getPosition().getValueAsDouble());
-    Logger.recordOutput("AllSensors/Swerve/FrontRightEncoder", m_SwerveFrontRightEncoder.getPosition().getValueAsDouble());
-    Logger.recordOutput("AllSensors/Swerve/BackLeftEncoder", m_SwerveBackLeftEncoder.getPosition().getValueAsDouble());
-    Logger.recordOutput("AllSensors/Swerve/BackRightEncoder", m_SwerveBackRightEncoder.getPosition().getValueAsDouble());
+    //Logger.recordOutput("AllSensors/Swerve/FrontLeftEncoder", m_SwerveFrontLeftEncoder.getPosition().getValueAsDouble());
+    //Logger.recordOutput("AllSensors/Swerve/FrontRightEncoder", m_SwerveFrontRightEncoder.getPosition().getValueAsDouble());
+    //Logger.recordOutput("AllSensors/Swerve/BackLeftEncoder", m_SwerveBackLeftEncoder.getPosition().getValueAsDouble());
+    //Logger.recordOutput("AllSensors/Swerve/BackRightEncoder", m_SwerveBackRightEncoder.getPosition().getValueAsDouble());
     //Logger.recordOutput("AllSensors/Algae/PivotEncodeREV", m_AlgaePivotEncoder.get());
     //Logger.recordOutput("AllSensors/Algae/DetectedSwitch", getAlgaeDetector());
     // Logger.recordOutput("AllSensors/Elevator/ElevatorEncodeREV", m_ElevatorEncoder.get());

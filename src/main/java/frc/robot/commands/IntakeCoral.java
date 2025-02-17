@@ -11,11 +11,10 @@ import frc.robot.subsystems.CoralShooterSubsystem;
 public class IntakeCoral extends Command {
   CoralShooterSubsystem m_coralShooterSubsystem;
   double m_speed;
-  /** Creates a new scoreCoral. */
+  /** Creates a new IntakeCoral. */
   public IntakeCoral(CoralShooterSubsystem coralShooterSubsystem, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_speed = speed;
-    
     m_coralShooterSubsystem = coralShooterSubsystem;
     addRequirements(m_coralShooterSubsystem);
   }

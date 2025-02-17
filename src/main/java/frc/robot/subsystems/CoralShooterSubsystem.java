@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import org.littletonrobotics.junction.Logger;
-
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -14,7 +13,9 @@ import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   SparkMax m_CoralShooterMotor  = new SparkMax(24, MotorType.kBrushed);
@@ -41,8 +42,26 @@ public class CoralShooterSubsystem extends SubsystemBase {
   public boolean getCoralShooterProximitySensor(){
     return m_CoralShooterProximitySensor.get();
   }
-  public void setAlgaeEject(double algaeEjectorPower){
+    public void setAlgaeEject(double algaeEjectorPower){
     m_AlgaeEjectorMotor.set(algaeEjectorPower);
+  }
+
+  //To be run from a command composition:  button or auto sequence
+  public Command startAlgaeEject() {
+    return runOnce(
+      ()-> {
+        setAlgaeEject(Constants.CoralConstants.CORAL_ALGAE_EJECT_SPEED);
+      }
+    );
+  }
+
+  //To be run from a command composition:  button or auto sequence
+  public Command stopAlgaeEject() {
+    return runOnce(
+      ()-> {
+        setAlgaeEject(0);
+      }
+    );
   }
 
 }

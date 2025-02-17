@@ -67,6 +67,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     Logger.recordOutput("AllSensors/Elevator/ElevatorEncodeREV", m_ElevatorEncoder.get());
     Logger.recordOutput("AllSensors/Elevator/BottomMagneticSwitch", getElevatorBottomSwitch());
     Logger.recordOutput("AllSensors/Elevator/TopMagneticSwitch", getElevatorTopSwitch());
+    Logger.recordOutput("AllSensors/Elevator/ElevatorMotorCurrent", m_ElevatorMotor.getTorqueCurrent().getValueAsDouble());
   }
 
   //Purpose: use by awesome closed loop controls

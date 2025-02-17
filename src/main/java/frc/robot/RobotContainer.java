@@ -5,20 +5,14 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.CollectAlgae;
-import frc.robot.commands.ElevateToPosition;
-import frc.robot.commands.IntakeCoral;
-import frc.robot.commands.ManualAlgae;
 import frc.robot.commands.ManualElevator;
-import frc.robot.commands.ScoreAlgae;
-import frc.robot.commands.ScoreCoral;
-import frc.robot.commands.StowAlgae;
+
 import frc.robot.subsystems.AlgaeIntake;
-import frc.robot.subsystems.AllSensors;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 
 /**
@@ -29,14 +23,20 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final AllSensors m_AllSensors = new AllSensors();
+  //private final AllSensors m_AllSensors = new AllSensors();
   private final AlgaeIntake m_AlgaeIntake = new AlgaeIntake();
   private final ElevatorSubsystem m_Elevator = new ElevatorSubsystem();
   private final CoralShooterSubsystem m_Coral = new CoralShooterSubsystem();
+  private final ReefscapeCommandFactory m_CommandFactory = new ReefscapeCommandFactory(m_Elevator, m_Coral, m_AlgaeIntake);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController m_towerController =
+      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
+  //Triggers that are not associated with the joystick directly but count on the joystick
+  Trigger m_TriggerTowerController_RightTrigger = new Trigger(()-> (m_towerController.getRightTriggerAxis() >= Constants.CoralConstants.CORAL_EJECT_TRIGGER_MINIMUM));
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -46,24 +46,30 @@ public class RobotContainer {
 
   private void configureBindings() {
    
+    //TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER
+    //TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER TOWER
     //Elevator
-    //m_driverController.b().onTrue(m_Elevator.resetEE());
-    m_driverController.b().onTrue(new IntakeCoral(m_Coral, 0.40));
-    m_driverController.back().whileTrue(new ScoreCoral(m_Coral, 0.60));
-    m_driverController.a().whileTrue(new ElevateToPosition(m_Elevator, Constants.ElevatorConstants.LEVEL1_POSITION));
-    m_driverController.x().whileTrue(new ElevateToPosition(m_Elevator, Constants.ElevatorConstants.LEVEL2_POSITION));
-    m_driverController.y().whileTrue(new ElevateToPosition(m_Elevator, Constants.ElevatorConstants.LEVEL3_POSITION));
+    m_towerController.b().onTrue(m_CommandFactory.reefLevelOne());
+    m_towerController.a().onTrue(m_CommandFactory.reefLevelTwo());
+    m_towerController.x().onTrue(m_CommandFactory.reefLevelThree());
+    m_towerController.y().onTrue(m_CommandFactory.reefLevelThree());  //NO LEVEL FOUR ON ALPHABOT!!!!!!!
+    m_Elevator.setDefaultCommand(new ManualElevator(m_Elevator, () -> m_towerController.getLeftY()*-1));
+    //Coral
+    m_TriggerTowerController_RightTrigger.onTrue(m_CommandFactory.coralEject(Constants.CoralConstants.CORAL_EJECT_SPEED));
+    //END TOWER SECTION
 
+    //DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER
+    //DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER
     //Algae
-    m_driverController.leftBumper().whileTrue(new ScoreAlgae(m_AlgaeIntake, 0.50));
-    m_driverController.rightBumper().whileTrue(
-      new CollectAlgae(m_AlgaeIntake, -0.15, 5.0));
-    
-   
-    //m_AlgaeIntake.setDefaultCommand(new ManualAlgae(m_AlgaeIntake, 
-    //() -> m_driverController.getLeftY()*-1));
-    m_AlgaeIntake.setDefaultCommand(new StowAlgae(m_AlgaeIntake));
-    m_Elevator.setDefaultCommand(new ManualElevator(m_Elevator, () -> m_driverController.getLeftY()*-1));
+    m_driverController.leftBumper().whileTrue(m_CommandFactory.algaeEject(0.50));
+    m_driverController.rightBumper().whileTrue(m_CommandFactory.algaeCollect(-0.15));
+    //Coral
+    m_driverController.y().onTrue(m_CommandFactory.coralIntake(0.40));
+    //END DRIVER SECTION
+
+    //DEFAULT SUBSYSTEM COMMANDS THAT DO NOT DEPEND ON ANY JOYSTICK
+    m_AlgaeIntake.setDefaultCommand(m_CommandFactory.algaeStow());
+    //END DEFAULT SECTION
 
   }
 

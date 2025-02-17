@@ -15,6 +15,7 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kTowerControllerPort = 1;
   }
   public static class AlgaeIntakeConstants {
     public static final double ALGAE_PIVOT_PID_TOLERANCE = 5.0;
@@ -35,7 +36,11 @@ public final class Constants {
     public static final double LEVEL3_POSITION = 7000;
     public static final double LEVEL4_POSITION = 1200;
     public static final double LIMIT_TOP_POSITION = 11000;
+  }
 
- 
+  public static class CoralConstants {
+    public static final double CORAL_ALGAE_EJECT_SPEED = 0.50;
+    public static final double CORAL_EJECT_TRIGGER_MINIMUM = 0.20;
+    public static final double CORAL_EJECT_SPEED = 0.60;
   }
 }
