@@ -33,7 +33,7 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_towerController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+      new CommandXboxController(OperatorConstants.kTowerControllerPort);
 
   //Triggers that are not associated with the joystick directly but count on the joystick
   Trigger m_TriggerTowerController_RightTrigger = new Trigger(()-> (m_towerController.getRightTriggerAxis() >= Constants.CoralConstants.CORAL_EJECT_TRIGGER_MINIMUM));
@@ -55,7 +55,7 @@ public class RobotContainer {
     m_towerController.y().onTrue(m_CommandFactory.reefLevelThree());  //NO LEVEL FOUR ON ALPHABOT!!!!!!!
     m_Elevator.setDefaultCommand(new ManualElevator(m_Elevator, () -> m_towerController.getLeftY()*-1));
     //Coral
-    m_TriggerTowerController_RightTrigger.onTrue(m_CommandFactory.coralEject(Constants.CoralConstants.CORAL_EJECT_SPEED));
+    m_TriggerTowerController_RightTrigger.whileTrue(m_CommandFactory.coralEject(Constants.CoralConstants.CORAL_EJECT_SPEED));
     //END TOWER SECTION
 
     //DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER
@@ -64,12 +64,16 @@ public class RobotContainer {
     m_driverController.leftBumper().whileTrue(m_CommandFactory.algaeEject(0.50));
     m_driverController.rightBumper().whileTrue(m_CommandFactory.algaeCollect(-0.15));
     //Coral
-    m_driverController.y().onTrue(m_CommandFactory.coralIntake(0.40));
+    m_driverController.y().whileTrue(m_CommandFactory.coralIntake(0.40));
     //END DRIVER SECTION
 
     //DEFAULT SUBSYSTEM COMMANDS THAT DO NOT DEPEND ON ANY JOYSTICK
     m_AlgaeIntake.setDefaultCommand(m_CommandFactory.algaeStow());
     //END DEFAULT SECTION
+
+    //TEST ONLY BINDINGS - REMOVE BEFORE TOURNAMENT
+    m_driverController.back().onTrue(m_CommandFactory.algaeResetEncoder());
+    m_towerController.back().onTrue(m_CommandFactory.elevatorResetEncoder());
 
   }
 

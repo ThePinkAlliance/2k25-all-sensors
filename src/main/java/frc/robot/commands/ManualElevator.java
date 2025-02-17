@@ -34,7 +34,14 @@ public class ManualElevator extends Command {
   public void execute() {
     double power = m_Power.getAsDouble();
     Logger.recordOutput("AllSensors/Elevator/ManualElevatorPower", power);
-    m_Elevator.moveElevator(m_Power.getAsDouble());
+
+    if (power < 0 && m_Elevator.getElevatorBottomSwitch()) {
+      m_Elevator.moveElevator(0);
+    } else if (power > 0 && m_Elevator.getElevatorTopSwitch()) {
+      m_Elevator.moveElevator(0);
+    } else {
+      m_Elevator.moveElevator(m_Power.getAsDouble());
+    }
   }
 
   // Called once the command ends or is interrupted.

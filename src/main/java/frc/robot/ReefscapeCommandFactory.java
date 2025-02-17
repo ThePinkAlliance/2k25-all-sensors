@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.revrobotics.spark.config.MAXMotionConfig;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
@@ -22,6 +24,7 @@ public class ReefscapeCommandFactory {
     ElevatorSubsystem m_ElevatorSubsystem = null;
     CoralShooterSubsystem m_CoralShooterSubsystem = null;
     AlgaeIntake m_AlgaeIntake = null;
+
     public ReefscapeCommandFactory(ElevatorSubsystem elevator, CoralShooterSubsystem coral, AlgaeIntake algae) {
         m_ElevatorSubsystem = elevator;
         m_CoralShooterSubsystem = coral;
@@ -57,12 +60,17 @@ public class ReefscapeCommandFactory {
         return new ElevateToPosition(m_ElevatorSubsystem, Constants.ElevatorConstants.STARTING_POSITION);
     }
 
+    public Command elevatorResetEncoder() {
+        return m_ElevatorSubsystem.resetEE();
+    }
+
     public Command coralEject(double speed) {
         return new ScoreCoral(m_CoralShooterSubsystem, speed);
     }
 
     public Command coralIntake(double speed) {
-        return new IntakeCoral(m_CoralShooterSubsystem, speed);
+        //Got to collection starting point, spin intake wheels simultaneously
+        return elevatorStow().alongWith(new IntakeCoral(m_CoralShooterSubsystem, speed));
     }
 
     public Command algaeEject(double speed) {
@@ -76,5 +84,11 @@ public class ReefscapeCommandFactory {
     public Command algaeCollect(double speed) {
         return new CollectAlgae(m_AlgaeIntake, speed);
     }
+
+    public Command algaeResetEncoder() {
+        return m_AlgaeIntake.resetAPE();
+    }
+
+    
 
 }
