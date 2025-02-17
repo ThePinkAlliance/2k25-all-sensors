@@ -34,7 +34,7 @@ public final class Constants {
     public static final double LEVEL1_POSITION = 1600;
     public static final double LEVEL2_POSITION = 3500;
     public static final double LEVEL3_POSITION = 7000;
-    public static final double LEVEL4_POSITION = 1200;
+    public static final double LEVEL4_POSITION = 7000; //Update when robot can reach these heights
     public static final double LIMIT_TOP_POSITION = 11000;
   }
 

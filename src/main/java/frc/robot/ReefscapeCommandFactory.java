@@ -29,7 +29,6 @@ public class ReefscapeCommandFactory {
         m_ElevatorSubsystem = elevator;
         m_CoralShooterSubsystem = coral;
         m_AlgaeIntake = algae;
-
     }
 
     public Command doNothing() {
@@ -56,6 +55,28 @@ public class ReefscapeCommandFactory {
         return new ElevateToPosition(m_ElevatorSubsystem, Constants.ElevatorConstants.LEVEL3_POSITION);
     }
 
+    public Command reefLevelFour() {
+        return new ElevateToPosition(m_ElevatorSubsystem, Constants.ElevatorConstants.LEVEL4_POSITION);
+    }
+
+    public Command reefStartAlgaeEjector(double speed) {
+        return m_CoralShooterSubsystem.startAlgaeEject();
+    }
+
+    public Command reefStopAlgaeEjectort(double speed) {
+        return m_CoralShooterSubsystem.stopAlgaeEject();
+    }
+
+    public Command reefEjectAlgaeLevelTwo(double speed) {
+        //Got to position , spin ejector wheels simultaneously
+        return reefLevelTwo().alongWith(reefStartAlgaeEjector(speed));
+    }
+
+    public Command reefEjectAlgaeLevelThree(double speed) {
+        //Got to position , spin ejector wheels simultaneously
+        return reefLevelThree().alongWith(reefStartAlgaeEjector(speed));
+    }
+
     public Command elevatorStow() {
         return new ElevateToPosition(m_ElevatorSubsystem, Constants.ElevatorConstants.STARTING_POSITION);
     }
@@ -73,7 +94,7 @@ public class ReefscapeCommandFactory {
         return elevatorStow().alongWith(new IntakeCoral(m_CoralShooterSubsystem, speed));
     }
 
-    public Command algaeEject(double speed) {
+    public Command algaeScore(double speed) {
         return new ScoreAlgae(m_AlgaeIntake, speed);
     }
 

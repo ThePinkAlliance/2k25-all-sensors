@@ -52,16 +52,20 @@ public class RobotContainer {
     m_towerController.b().onTrue(m_CommandFactory.reefLevelOne());
     m_towerController.a().onTrue(m_CommandFactory.reefLevelTwo());
     m_towerController.x().onTrue(m_CommandFactory.reefLevelThree());
-    m_towerController.y().onTrue(m_CommandFactory.reefLevelThree());  //NO LEVEL FOUR ON ALPHABOT!!!!!!!
+    m_towerController.y().onTrue(m_CommandFactory.reefLevelFour());
     m_Elevator.setDefaultCommand(new ManualElevator(m_Elevator, () -> m_towerController.getLeftY()*-1));
     //Coral
     m_TriggerTowerController_RightTrigger.whileTrue(m_CommandFactory.coralEject(Constants.CoralConstants.CORAL_EJECT_SPEED));
+    //Algae
+    m_towerController.rightBumper().whileTrue(m_CommandFactory.reefEjectAlgaeLevelTwo(0.60));
+    m_towerController.leftBumper().whileTrue(m_CommandFactory.reefEjectAlgaeLevelThree(0.60));
+    
     //END TOWER SECTION
 
     //DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER
     //DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER DRIVER
     //Algae
-    m_driverController.leftBumper().whileTrue(m_CommandFactory.algaeEject(0.50));
+    m_driverController.leftBumper().whileTrue(m_CommandFactory.algaeScore(0.50));
     m_driverController.rightBumper().whileTrue(m_CommandFactory.algaeCollect(-0.15));
     //Coral
     m_driverController.y().whileTrue(m_CommandFactory.coralIntake(0.40));
