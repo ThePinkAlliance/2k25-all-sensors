@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.robot.commands.CollectAlgae;
+import frc.robot.commands.EjectAlgae;
 import frc.robot.commands.ElevateToPosition;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.commands.ScoreAlgae;
@@ -59,22 +60,18 @@ public class ReefscapeCommandFactory {
         return new ElevateToPosition(m_ElevatorSubsystem, Constants.ElevatorConstants.LEVEL4_POSITION);
     }
 
-    public Command reefStartAlgaeEjector(double speed) {
-        return m_CoralShooterSubsystem.startAlgaeEject();
-    }
-
-    public Command reefStopAlgaeEjectort(double speed) {
-        return m_CoralShooterSubsystem.stopAlgaeEject();
+    public Command reefEjectAlgae(double speed) {
+        return new EjectAlgae(m_CoralShooterSubsystem, speed);
     }
 
     public Command reefEjectAlgaeLevelTwo(double speed) {
         //Got to position , spin ejector wheels simultaneously
-        return reefLevelTwo().alongWith(reefStartAlgaeEjector(speed));
+        return reefLevelTwo().alongWith(reefEjectAlgae(speed));
     }
 
     public Command reefEjectAlgaeLevelThree(double speed) {
         //Got to position , spin ejector wheels simultaneously
-        return reefLevelThree().alongWith(reefStartAlgaeEjector(speed));
+        return reefLevelThree().alongWith(reefEjectAlgae(speed));
     }
 
     public Command elevatorStow() {

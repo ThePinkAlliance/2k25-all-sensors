@@ -46,22 +46,4 @@ public class CoralShooterSubsystem extends SubsystemBase {
     m_AlgaeEjectorMotor.set(algaeEjectorPower);
   }
 
-  //To be run from a command composition:  button or auto sequence
-  public Command startAlgaeEject() {
-    return runOnce(
-      ()-> {
-        setAlgaeEject(Constants.CoralConstants.CORAL_ALGAE_EJECT_SPEED);
-      }
-    );
-  }
-
-  //To be run from a command composition:  button or auto sequence
-  public Command stopAlgaeEject() {
-    return runOnce(
-      ()-> {
-        setAlgaeEject(0);
-      }
-    );
-  }
-
 }
