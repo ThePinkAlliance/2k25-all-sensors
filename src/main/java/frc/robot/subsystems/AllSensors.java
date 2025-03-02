@@ -56,7 +56,7 @@ public class AllSensors extends SubsystemBase {
   }
 
   public boolean getElevatorTopSwitch() {
-    return m_ElevatorTopMagneticSwitch.get();
+    return !m_ElevatorTopMagneticSwitch.get();
   }
 
   public boolean getElevatorBottomSwitch() {
